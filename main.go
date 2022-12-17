@@ -12,7 +12,6 @@ func main() {
 	// entry point for SPA react app served by echo
 	e.Static("/", "public")
 	e.GET("/", func(c echo.Context) error {
-		c.File("public/index.html")
 		return c.File("public/index.html")
 	})
 	// reactive webpage nonsense goes here
