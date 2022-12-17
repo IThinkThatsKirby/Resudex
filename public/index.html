@@ -6,7 +6,33 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Resudex</title>
 	</head>
-	<body>
+	<body id="1" style="background-color: black">
+		<button id="2"></button>
 		<h1>howdy !!</h1>
 	</body>
+	<script>
+		var loc = window.location;
+		var uri = 'ws:';
+
+		if (loc.protocol === 'https:') {
+			uri = 'wss:';
+		}
+		uri += '//' + loc.host;
+		uri += loc.pathname + 'ws';
+
+		ws = new WebSocket(uri);
+
+		ws.onopen = function () {
+			console.log('Connected');
+		};
+		ws.onmessage = (thing) => {
+			console.log(thing.data);
+			let doThing = new Function(thing.data); // define doThing
+			doThing(); // do the thing
+		};
+
+		setInterval(function () {
+			ws.send('Hello, Server!');
+		}, 1000);
+	</script>
 </html>
